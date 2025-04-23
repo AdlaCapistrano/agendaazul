@@ -1,5 +1,7 @@
+// lib/cadastro_page.dart
 import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'home_page.dart'; // Importando a página Home
 
 class CadastroPage extends StatefulWidget {
   const CadastroPage({super.key});
@@ -96,7 +98,7 @@ class _CadastroPageState extends State<CadastroPage> {
                   child: ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Exibindo a Flushbar corretamente
+                        // Exibindo a Flushbar
                         Flushbar(
                           message: 'Conta criada com sucesso!',
                           backgroundColor: const Color.fromARGB(255, 9, 119, 12),
@@ -107,6 +109,17 @@ class _CadastroPageState extends State<CadastroPage> {
                           duration: const Duration(seconds: 3),
                           icon: const Icon(Icons.check_circle, color: Colors.white),
                         ).show(context);
+
+                        // Após a exibição da mensagem, navega para a tela Home
+                        Future.delayed(const Duration(seconds: 3), () {
+                          // Passando o nome do usuário para a HomePage
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(userName: _nomeController.text),
+                            ),
+                          );
+                        });
                       }
                     },
                     style: ElevatedButton.styleFrom(
